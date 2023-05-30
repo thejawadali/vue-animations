@@ -1,19 +1,22 @@
 <template>
   <div>
-    <nav class="bg-gray-800 p-4">
-      <router-link class="text-white" to="/">Home</router-link>
-      <router-link class="text-white" to="/about">About</router-link>
-    </nav>
-    <router-view v-slot="{ Component }">
-      <!-- <transition name="fade" mode="out-in"> -->
-      <transition mode="out-in" enter-active-class="animate__animated animate__fadeInLeft"
-        leave-active-class="animate__animated animate__fadeOutLeft">
-        <component :is="Component" />
-      </transition>
-    </router-view>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate cum, natus, reiciendis cumque ex sunt doloribus
+      id nostrum culpa officia perspiciatis repudiandae recusandae similique officiis debitis explicabo magnam quo labore.
+    </p>
+    <button @click="store.increment">Increase no.</button>
   </div>
 </template>
 
 <script setup>
-// import { RouterView } from "vue-router"
+import { useStore } from "@/store"
+import { onMounted } from "vue"
+
+
+const store = useStore()
+
+onMounted( () => {
+  store.pubsub.subscribe( 'count', ( data ) => {
+    console.log( "Count changed:", data )
+  } )
+} )
 </script>
